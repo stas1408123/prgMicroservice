@@ -1,0 +1,14 @@
+﻿{
+  "profiles": {
+    "OrderMicroservice": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      //"launchBrowser": true,
+      //"launchUrl": "swagger",
+      "applicationUrl": "https://localhost:8001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

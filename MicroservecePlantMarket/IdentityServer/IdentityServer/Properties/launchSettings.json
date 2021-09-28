@@ -1,0 +1,18 @@
+{
+  "IdentityServer": {
+    "commandName": "Project",
+    "dotnetRunMessages": "true",
+    "launchUrl": "https://localhost:6001/Account/Login",
+    "launchBrowser": true,
+    "applicationUrl": "https://localhost:6001;http://localhost:6000",
+    "environmentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  },
+  "profiles": {
+    "IdentityServer": {
+      "commandName": "Project",
+      "applicationUrl": "https://localhost:6001"
+    }
+  }
+}
