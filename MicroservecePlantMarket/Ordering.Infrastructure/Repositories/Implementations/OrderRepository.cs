@@ -26,12 +26,9 @@ namespace Ordering.Infrastructure.Repositories.Implementations
         {
             try
             {
-
                 var orders = await _orderContext.Orders
                     .Include(item => item.OrderedPlants)
-                    //.ThenInclude(plant => plant.Plant)
                     .ToListAsync();
-
                 return orders;
             }
             catch (Exception ex)
@@ -184,6 +181,29 @@ namespace Ordering.Infrastructure.Repositories.Implementations
                 return null;
             }
 
+        }
+
+        public async Task<IEnumerable<Order>> GetAllOrdersByUserIdAsync(int userid)
+        {
+            try
+            {
+                var orders = await _orderContext.Orders
+                    .Include(item => item.OrderedPlants)
+                    .Where(order => order.UserId==userid)
+                    .ToListAsync();
+
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorByTemplate(
+                    nameof(OrderRepository),
+                    nameof(GetAllOrdersByUserIdAsync),
+                    $"Cannot get order by user ID",
+                    ex);
+
+                return null;
+            }
         }
 
         //public async Task<List<Order>> GetAllUserAsync(User user)

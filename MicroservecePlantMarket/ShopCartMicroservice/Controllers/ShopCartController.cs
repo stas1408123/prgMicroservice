@@ -130,12 +130,6 @@ namespace ShopCartMicroservice.Controllers
         public async Task<ActionResult<bool>> AddPlantToCart([FromBody] ShopCartItem shopCartItem)
         {
 
-            //if (!int.TryParse(_identityService.GetUserIdentity(), out int userId))
-            //{
-            //    return BadRequest();
-            //}
-
-
             var IsAdd = await _shopCartService
                 .AddNewShopCartItemAsync(shopCartItem);
 

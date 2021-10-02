@@ -16,6 +16,6 @@ namespace Ordering.Infrastructure.Repositories.Interfaces
 
         Task<Order> UpdateAsync(Order order);
 
-        //Task<List<Order>> GetAllUserAsync(User user);
+        Task<IEnumerable<Order>> GetAllOrdersByUserIdAsync(int userid);
     }
 }

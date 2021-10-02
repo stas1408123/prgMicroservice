@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Ordering.Core.Interfaces;
 using Ordering.Infrastructure.Entities;
 using System.Collections.Generic;
@@ -11,10 +12,14 @@ namespace PlantMarket.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly IIdentityService _identityService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(
+            IIdentityService identityService,
+            IOrderService orderService)
         {
             _orderService = orderService;
+            _identityService = identityService;
         }
 
 
@@ -41,7 +46,7 @@ namespace PlantMarket.Controllers
             var order = await _orderService
                 .GetOrderByIdAsync(id);
 
-            if(order==null)
+            if (order == null)
             {
                 return BadRequest();
             }
@@ -52,14 +57,14 @@ namespace PlantMarket.Controllers
 
         [HttpPost]
         [Route("AddNewOrder")]
-        public async Task<ActionResult<Order>> AddOrderAsync([FromBody]Order newOrder)
+        public async Task<ActionResult<Order>> AddOrderAsync([FromBody] Order newOrder)
         {
             var Order = await _orderService
                 .AddOrderAsync(newOrder);
 
-            if(Order==null)
+            if (Order == null)
             {
-                return BadRequest(); 
+                return BadRequest();
             }
             return Ok(Order);
 
@@ -73,7 +78,7 @@ namespace PlantMarket.Controllers
             var IsDelete = await _orderService
                 .DeleteAsync(id);
 
-            if(!IsDelete)
+            if (!IsDelete)
             {
                 return BadRequest();
             }
@@ -81,30 +86,42 @@ namespace PlantMarket.Controllers
             return Ok(IsDelete);
         }
 
-        //[HttpGet]
-        //[Route("GetAllUserOrders")]
-        //public async Task<ActionResult<List<Order>>> GetAllUserOrdersAsync()
-        //{
-        //    var userIdString = User.FindFirst("userid")?.Value;
+        //[Authorize]
+        [HttpGet]
+        [Route("GetAllUserOrders")]
+        public async Task<ActionResult<List<Order>>> GetAllUserOrdersAsync()
+        {
+            if (!int.TryParse(_identityService.GetUserIdentity(), out int userId))
+            {
+                return BadRequest();
+            }
 
-        //    if (!int.TryParse(userIdString, out int userId))
-        //    {
-        //        return BadRequest();
-        //    }
+            var orders = await _orderService
+                .GetAllOrdersByUserIdAsync(userId);
 
-        //    var user = await _userService
-        //        .GetUserById(userId);
+            if (orders == null)
+            {
+                return BadRequest();
+            }
 
-        //    var orders = await _orderService
-        //        .GetAllUserAsync(user);
+            return Ok(orders);
+        }
 
-        //    if (orders == null)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpGet]
+        [Route("GetAllUserOrdersById")]
+        public async Task<ActionResult<List<Order>>> GetAllUserOrdersByIdAsync(int id)
+        {
 
-        //    return Ok(orders);
-        //}
+            var orders = await _orderService
+                .GetAllOrdersByUserIdAsync(id);
+
+            if (orders == null)    //??
+            {
+                return BadRequest();
+            }
+
+            return Ok(orders);
+        }
 
     }
 }

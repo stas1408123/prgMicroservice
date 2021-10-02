@@ -1,6 +1,6 @@
 using System;
 
-namespace ShopCartMicroservice
+namespace Payment.API
 {
     public class WeatherForecast
     {

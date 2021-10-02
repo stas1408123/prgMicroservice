@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrderMicroservice.Controllers
+namespace Payment.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

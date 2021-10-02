@@ -1,14 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShoppingCart.Infrastructure.Context;
 using ShoppingCart.Infrastructure.Entities;
 using ShoppingCart.Infrastructure.Repositories.Interfaces;
+using ShoppingCart.Shared;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ShoppingCart.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace ShoppingCart.Infrastructure.Repositories.Implementations
 {
@@ -17,7 +15,8 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
         private readonly ShoppingCartContext _shoppingCartContext;
         private readonly ILogger<ShopCartRepository> _logger;
 
-        public ShopCartRepository(ShoppingCartContext shoppingCartContext,
+        public ShopCartRepository( 
+            ShoppingCartContext shoppingCartContext,
             ILogger<ShopCartRepository> logger)
         {
             _shoppingCartContext = shoppingCartContext;
@@ -38,6 +37,9 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
                     {
                         PlantId = shopCartItem.PlantId,
                         ShopCartId = shopCartItem.ShopCartId,
+                        PictureLink=shopCartItem.PictureLink,
+                        Price=shopCartItem.Price,
+                        ProductName=shopCartItem.ProductName,
                     }
                     );
 

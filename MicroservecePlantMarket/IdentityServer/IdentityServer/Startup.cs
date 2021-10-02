@@ -82,9 +82,6 @@ namespace IdentityServer
                 //app.UseHsts();
             }
 
-
-            app.UseDeveloperExceptionPage();
-
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors("DefaultPolicy");

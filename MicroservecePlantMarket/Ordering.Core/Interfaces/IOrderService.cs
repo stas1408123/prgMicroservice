@@ -15,5 +15,7 @@ namespace Ordering.Core.Interfaces
         Task<bool> DeleteAsync(int orderId);
 
         Task<Order> UpdateAsync(Order order);
+
+        Task<IEnumerable<Order>> GetAllOrdersByUserIdAsync(int userId);
     }
 }

@@ -7,7 +7,7 @@ using Product.Infrastructure.Entities;
 
 namespace Product.Core.Services.Interfaces
 {
-    public interface ICategoryService
+    public interface ICategoryService //: IService<Category>
     {
         Task<List<Category>> GetAllASync();
 

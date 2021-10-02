@@ -17,7 +17,8 @@ namespace ShoppingCart.Core.Services
         private readonly IShopCartRepository _shopCartRepository;
         private readonly ILogger<ShopCartService> _logger;
 
-        public ShopCartService(IShopCartRepository shopCartRepository,
+        public ShopCartService(
+            IShopCartRepository shopCartRepository,
             ILogger<ShopCartService> logger)
         {
             _shopCartRepository = shopCartRepository;
@@ -32,7 +33,6 @@ namespace ShoppingCart.Core.Services
             }
             try
             {
-
                 return await _shopCartRepository.AddNewShopCartItemAsync(shopCartItem);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace ShoppingCart.Core.Services
                 _logger.LogErrorByTemplate(
                     nameof(ShopCartService),
                     nameof(CreateShopCartAsync),
-                    $"Failed creating cart",
+                    "Failed creating cart",
                     ex);
 
                 return null;
@@ -70,9 +70,7 @@ namespace ShoppingCart.Core.Services
         {
             try
             {
-
                 return await _shopCartRepository.DeleteShopCartItemAsync(shopCartItemId);
-
             }
             catch (Exception ex)
             {
@@ -92,7 +90,6 @@ namespace ShoppingCart.Core.Services
         {
             try
             {
-
                 return await _shopCartRepository.GetCartByUserIdAsync(userId);
             }
             catch (Exception ex)
@@ -131,62 +128,5 @@ namespace ShoppingCart.Core.Services
         {
             throw new NotImplementedException();
         }
-
-        /*public async Task<Order> BuyAsync(ShopCart shopCart)
-        {
-            if (shopCart is null)
-            {
-                return null;
-            }
-            try
-            {
-
-                var user = await _plantMarketContext.
-                    Users.FirstOrDefaultAsync(user => user.Id == shopCart.UserId);
-
-                var exShopCartItems = _plantMarketContext.ShopCarItem
-                    .Include(shopCartItem => shopCartItem.Plant)
-                    .Where(ShopCartItem => ShopCartItem.ShopCartId == shopCart.Id);
-
-                var order = new Order()
-                {
-                    Name = user.Name,
-                    SerName = user.SerName,
-                    Adress = user.Adress,
-                    Phone = user.Phone,
-                    Email = user.Email,
-                    User = user,
-                    OrderedPlants = new List<OrderedPlant>()
-                };
-
-                foreach (ShopCartItem shopCartItem in exShopCartItems)
-                {
-                    _plantMarketContext.OrderedPlant
-                        .Add(
-                        new OrderedPlant
-                        {
-                            Plant = shopCartItem.Plant,
-                            Order = order
-
-                        });
-
-                }
-
-                await _plantMarketContext.SaveChangesAsync();
-
-                return order;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorByTemplate(
-                    nameof(ShopCartService),
-                    nameof(BuyAsync),
-                    $"Failed operation Buy",
-                    ex);
-
-                return null;
-            }
-
-        }*/
     }
 }

@@ -130,6 +130,9 @@ namespace Ordering.Core.Services
 
         }
 
-
+        public async Task<IEnumerable<Order>> GetAllOrdersByUserIdAsync(int userId)
+        {
+            return await _orderRepository.GetAllOrdersByUserIdAsync(userId);
+        }
     }
 }

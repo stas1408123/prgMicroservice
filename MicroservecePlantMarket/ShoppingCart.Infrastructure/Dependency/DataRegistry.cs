@@ -9,7 +9,6 @@ namespace ShoppingCart.Infrastructure.Dependency
         public static void AddDataDependencies(this IServiceCollection services)
         {
             services.AddTransient<IShopCartRepository, ShopCartRepository>();
-
         }
     }
 }

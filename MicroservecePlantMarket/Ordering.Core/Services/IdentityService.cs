@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using ShoppingCart.Core.Interfaces;
+using Ordering.Core.Interfaces;
 using System;
 
-namespace ShoppingCart.Core.Dependency
+namespace Ordering.Core.Services
 {
     public class IdentityService : IIdentityService
     {
