@@ -1,6 +1,6 @@
 using System;
 
-namespace ProductMicroservice
+namespace PlantMarket
 {
     public class WeatherForecast
     {

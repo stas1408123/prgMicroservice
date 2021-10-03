@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Product.Infrastructure.Repositories.Interfaces;
 using Product.Infrastructure.Context;
 using Product.Infrastructure.Entities;
+using Product.Infrastructure.Repositories.Interfaces;
 using Product.Shared;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Product.Infrastructure.Repositories.Implementations
 {
@@ -16,7 +14,9 @@ namespace Product.Infrastructure.Repositories.Implementations
     {
         private readonly ProductContext _productContext;
         private readonly ILogger<CategoryRepository> _logger;
-        public CategoryRepository(ProductContext productContext,
+
+        public CategoryRepository(
+            ProductContext productContext,
             ILogger<CategoryRepository> logger)
         {
             _productContext = productContext;
@@ -25,11 +25,6 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         public async Task<Category> AddCategoryAsync(Category newCategory)
         {
-            if(newCategory is null)
-            {
-                return null;
-            }
-
             try
             {
                 await _productContext.AddAsync<Category>(newCategory);
@@ -51,11 +46,6 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         public async Task<bool> DeleteAsync(int categoryId)
         {
-            if (categoryId == 0)
-            {
-                return false;
-            }
-
             try
             {
                 var exCategory = await _productContext.Categories
@@ -86,7 +76,6 @@ namespace Product.Infrastructure.Repositories.Implementations
         {
             try
             {
-
                 var categories = await _productContext.Categories
                     .Include(item => item.Plants)
                     .ToListAsync();
@@ -103,19 +92,12 @@ namespace Product.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
-
         }
 
 
 
         public async Task<Category> UpdateAsync(Category category)
         {
-            if(category == null)
-            {
-                return null;
-            }
-
             try
             {
                 var exCategory = await _productContext.Categories
@@ -148,10 +130,6 @@ namespace Product.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
-
-        
-        
     }
 }

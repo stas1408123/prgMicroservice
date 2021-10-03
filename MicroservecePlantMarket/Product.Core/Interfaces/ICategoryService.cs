@@ -7,7 +7,7 @@ using Product.Infrastructure.Entities;
 
 namespace Product.Core.Services.Interfaces
 {
-    public interface ICategoryService //: IService<Category>
+    public interface ICategoryService
     {
         Task<List<Category>> GetAllASync();
 
@@ -16,7 +16,5 @@ namespace Product.Core.Services.Interfaces
         Task<Category> UpdateAsync(Category category);
 
         Task<bool> DeleteAsync(int categoryId);
-
-
     }
 }

@@ -1,0 +1,26 @@
+<div class="row g-3">
+
+    <h2 class='form-data'>
+        <b>New category info</b>
+    </h2>
+
+    <mat-form-field class="form-floating">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" [(ngModel)]='category.name'>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]='category.description'>
+    </mat-form-field>
+
+    <div class="but">
+        <div class="cancel-button">
+            <button mat-stroked-button (click)='add()'>Add</button>
+        </div>
+        <div class="submit-button">
+            <button mat-raised-button (click)='cancel()' style="background-color:black; color: #fff;">Canсel</button>
+        </div>
+    </div>
+    
+<div>

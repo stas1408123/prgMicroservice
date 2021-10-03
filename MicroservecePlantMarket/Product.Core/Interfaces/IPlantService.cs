@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Product.Infrastructure.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Product.Infrastructure.Entities;
 
 namespace Product.Core.Services.Interfaces
 {
     public interface IPlantService
     {
         Task<List<Plant>> GetAllAsync();
+
         Task<Plant> GetPlantByIdAsync(int plantId);
 
         Task<List<Plant>> GetFavPlants();

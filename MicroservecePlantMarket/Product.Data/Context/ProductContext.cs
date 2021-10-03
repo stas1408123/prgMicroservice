@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Product.Infrastructure.Entities;
 
 namespace Product.Infrastructure.Context
@@ -13,19 +8,16 @@ namespace Product.Infrastructure.Context
         public ProductContext(DbContextOptions<ProductContext> options)
             : base(options)
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
 
         public DbSet<Plant> Plants { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
             modelBuilder.Entity<Category>().HasData(
                 new Category[]
                 {
@@ -41,12 +33,9 @@ namespace Product.Infrastructure.Context
                     Name = "Огород",
                     Description = "Лучший выбор для вашего огорода"
                     }
-                }
-                );
+                });
 
-
-            modelBuilder.Entity<Plant>().HasData
-                (
+            modelBuilder.Entity<Plant>().HasData(
                 new Plant
                 {
                     Id = 1,
@@ -112,8 +101,7 @@ namespace Product.Infrastructure.Context
                     IsAvailable = true,
                     Price = 200,
                     CategoryId = 2,
-                }
-                );
+                });
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Product.Core.Services.Interfaces;
 using Product.Infrastructure.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,7 +72,7 @@ namespace ProductMicroservice.Controllers
             var plant = await _plantService
                 .AddPlantAsync(newPlant);
 
-            if(plant == null)
+            if (plant == null)
             {
                 return BadRequest();
             }
@@ -88,7 +86,7 @@ namespace ProductMicroservice.Controllers
             var plant = await _plantService
                 .UpdateAsync(newPlant);
 
-            if(plant ==null)
+            if (plant == null)
             {
                 return BadRequest(0);
             }
@@ -96,14 +94,14 @@ namespace ProductMicroservice.Controllers
             return Ok(plant);
         }
 
-        
+
         [HttpDelete]
-        public async Task<ActionResult<bool>> DeletPlant(int id)
+        public async Task<ActionResult<bool>> DeletePlant(int id)
         {
             var plant = await _plantService
                 .DeleteAsync(id);
 
-            if(plant == false)
+            if (plant == false)
             {
                 return BadRequest();
             }

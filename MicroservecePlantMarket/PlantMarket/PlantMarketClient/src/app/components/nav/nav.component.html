@@ -1,0 +1,108 @@
+<mat-toolbar>
+    
+    <mat-toolbar-row style="color: #fff;background-color: black;">
+
+        <span (click)='goToHome()' class="Logo">PlantMarket</span>
+        <span class="example-spacer"></span>
+
+        <div class="header_inner">
+        <button mat-button class='button' (click)='goToHome()'>
+            Home
+            <mat-icon>home</mat-icon>
+        </button>
+
+        <button mat-button class='button' [matMenuTriggerFor]="menuAdmin" *ngIf='user?.role?.name=="admin"'>
+            Admin
+            <mat-icon>admin_panel_settings</mat-icon>
+        </button> 
+
+        <mat-menu #menuAdmin="matMenu">
+            <button mat-menu-item (click)='openAddNewPlant()'>
+              <mat-icon>add</mat-icon>
+              Add new Plant
+            </button>
+            <button mat-menu-item (click)='openAddNewCategory()'>
+              <mat-icon>add</mat-icon>
+              Add new Category
+            </button>
+        </mat-menu>
+
+        
+        <button mat-button class='button' (click)='openShopCart()'>
+            ShopCart
+            <mat-icon>shopping_cart</mat-icon>
+        </button> 
+
+        <button mat-button class='button' (click)='openOrders()'>
+            Orders
+            <mat-icon>shopping_bag</mat-icon>
+        </button> 
+
+        <button mat-button class='button' [matMenuTriggerFor]="menuCategory">
+            Category
+            <mat-icon>category</mat-icon>
+        </button> 
+
+        <mat-menu #menuCategory="matMenu">
+            <button mat-menu-item *ngFor="let category of categories" (click)='openPlantInCategory(category)'>
+              {{category.name}}
+            </button>
+        </mat-menu>
+
+        <button mat-button (click)='openAllProduct()' class='button' >
+            Products
+            <mat-icon>grass</mat-icon>
+        </button> 
+
+
+
+        <button mat-button class='button' [matMenuTriggerFor]="menuUser" *ngIf='isUserAuth'>
+            Account
+            <mat-icon>account_circle</mat-icon>
+        </button> 
+
+        <mat-menu #menuUser="matMenu">
+            <button mat-menu-item (click)='openEditProfileDialog()'>
+              <mat-icon>info</mat-icon>
+              Edit info
+            </button>
+            <button mat-menu-item (click)='logOut()'>
+              <mat-icon>logout</mat-icon>
+              LogOut
+            </button>
+        </mat-menu>
+
+        </div>
+      </mat-toolbar-row>
+
+
+
+    <mat-toolbar-row>
+
+        <mat-form-field class="search">
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]='search'>
+        </mat-form-field>
+        <button mat-button (click)='startSearch()'>
+            <mat-icon>search</mat-icon>
+        </button> 
+
+
+
+        <div *ngIf="isUserAuth; then thenBlock else elseBlock"></div>   
+        <ng-template #thenBlock>
+            <p style="margin-left: auto;margin-right: 10px;" *ngIf='user'>{{user.name}} {{user.serName}}</p>   
+        </ng-template>  
+        <ng-template #elseBlock>
+            <button mat-flat-button class="button" (click)='login()'>LogIn</button>
+            <!-- <button mat-flat-button style="background-color:black; color: #fff;" routerLink='/register'>Sign-up</button> -->
+        </ng-template>    
+            
+
+      </mat-toolbar-row>
+
+
+</mat-toolbar>
+
+
+

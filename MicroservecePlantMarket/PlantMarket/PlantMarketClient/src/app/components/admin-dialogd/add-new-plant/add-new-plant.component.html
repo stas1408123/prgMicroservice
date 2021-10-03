@@ -1,0 +1,51 @@
+<div class="row g-3">
+  
+    <h2 class='form-data'>
+      <b>New plant info</b>
+    </h2>      
+   
+    <mat-form-field class="form-floating">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" [(ngModel)]='plant.name'>
+    </mat-form-field>
+
+    <mat-form-field class="form-floating">
+      <mat-label>Price</mat-label>
+      <input matInput placeholder="Price" [(ngModel)]='plant.price'>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Short Description</mat-label>
+      <input matInput [(ngModel)]='plant.shortDescription'>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Long Description</mat-label>
+      <input matInput [(ngModel)]='plant.longDescription'>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Picture Link</mat-label>
+      <input matInput [(ngModel)]='plant.pictureLink'>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Category of plant</mat-label>
+
+        <mat-select  [(ngModel)]="plant.categoryId" name="category">
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{category?.name}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+    <div class="but">
+      <div class="cancel-button">
+        <button mat-stroked-button (click)='add()'>Add</button>
+      </div>
+      <div class="submit-button">
+        <button mat-raised-button 
+          (click)='cancel()' style="background-color:black; color: #fff;">Canсel</button>
+      </div>
+    </div>

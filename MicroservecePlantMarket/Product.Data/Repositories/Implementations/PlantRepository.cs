@@ -7,7 +7,6 @@ using Product.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Product.Infrastructure.Repositories.Implementations
@@ -17,8 +16,8 @@ namespace Product.Infrastructure.Repositories.Implementations
         private readonly ProductContext _productContext;
         private readonly ILogger<PlantRepository> _logger;
 
-
-        public PlantRepository(ProductContext productContext,
+        public PlantRepository(
+            ProductContext productContext,
             ILogger<PlantRepository> logger)
         {
             _logger = logger;
@@ -27,15 +26,10 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         public async Task<Plant> AddPlantAsync(Plant newPlant)
         {
-            if(newPlant== null || newPlant.Id!=0)
-            {
-                return null;
-            }
             try
             {
 
-                await _productContext.Plants
-                   .AddAsync(newPlant);
+                await _productContext.Plants.AddAsync(newPlant);
 
                 await _productContext.SaveChangesAsync();
 
@@ -64,8 +58,7 @@ namespace Product.Infrastructure.Repositories.Implementations
                 var exProduct = await _productContext.Plants
                         .FirstOrDefaultAsync(item => item.Id == plantId);
 
-                _productContext.Plants
-                    .Remove(exProduct);
+                _productContext.Plants.Remove(exProduct);
 
                 await _productContext.SaveChangesAsync();
 
@@ -151,31 +144,18 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         public async Task<Plant> UpdateAsync(Plant plant)
         {
-            if(plant is null)
-            {
-                return null;
-            }
-
             try
             {
-                var exPlant = await _productContext.Plants
-                        .FirstOrDefaultAsync(item => item.Id == plant.Id);
-
-                if (!(exPlant is null))
+                if (!_productContext.Plants.Any(p => p.Id == plant.Id))
                 {
-                    exPlant.Name = plant.Name;
-                    exPlant.ShortDescription = plant.ShortDescription;
-                    exPlant.LongDescription = plant.LongDescription;
-                    exPlant.Price = plant.Price;
-                    exPlant.IsFavourite = plant.IsFavourite;
-                    exPlant.IsAvailable = plant.IsAvailable;
-                    exPlant.CategoryId = plant.CategoryId;
-                    exPlant.PictureLink = plant.PictureLink;
+                    return null;
                 }
+
+                _productContext.Entry(plant).State = EntityState.Modified;
 
                 await _productContext.SaveChangesAsync();
 
-                return exPlant;
+                return plant;
             }
             catch (Exception ex)
             {
@@ -217,11 +197,6 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         public async Task<List<Plant>> Search(string name)
         {
-            if(string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
-            {
-                return null;
-            }
-
             try
             {
                 var plants = _productContext.Plants
@@ -240,7 +215,6 @@ namespace Product.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
     }
 }

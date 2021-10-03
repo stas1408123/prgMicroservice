@@ -33,7 +33,6 @@ namespace IdentityServer
 
         public static class DatabaseInitialazee
         {
-
             public static void Init(IServiceProvider service)
             {
 
@@ -44,11 +43,7 @@ namespace IdentityServer
                     UserName ="user",
                 };
 
-                var resulr  = context.CreateAsync(user,"user123").GetAwaiter().GetResult();
-
-                //context.Add(user);
-                //context.SaveChanges();
-
+                var result  = context.CreateAsync(user,"user123").GetAwaiter().GetResult();
             }
         }
 

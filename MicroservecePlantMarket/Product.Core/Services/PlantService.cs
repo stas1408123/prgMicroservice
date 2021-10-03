@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Product.Core.Services.Interfaces;
 using Product.Infrastructure.Entities;
-using Product.Infrastructure.Repositories.Implementations;
 using Product.Infrastructure.Repositories.Interfaces;
 using Product.Shared;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Product.Core.Services
@@ -19,7 +15,8 @@ namespace Product.Core.Services
         private readonly ILogger<PlantService> _logger;
 
 
-        public PlantService(IPlantRepository plantRepository,
+        public PlantService(
+            IPlantRepository plantRepository,
             ILogger<PlantService> logger)
         {
             _logger = logger;
@@ -28,10 +25,11 @@ namespace Product.Core.Services
 
         public async Task<Plant> AddPlantAsync(Plant newPlant)
         {
-            if(newPlant== null || newPlant.Id!=0)
+            if (newPlant is null || newPlant.Id != 0)
             {
                 return null;
             }
+
             try
             {
                 return await _plantRepository.AddPlantAsync(newPlant);
@@ -123,7 +121,7 @@ namespace Product.Core.Services
 
         public async Task<Plant> UpdateAsync(Plant plant)
         {
-            if(plant is null)
+            if (plant is null)
             {
                 return null;
             }
@@ -149,7 +147,6 @@ namespace Product.Core.Services
         {
             try
             {
-
                 return await _plantRepository.GetAllPalantInCategory(categoryId);
             }
             catch (Exception ex)
@@ -167,14 +164,14 @@ namespace Product.Core.Services
 
         public async Task<List<Plant>> Search(string name)
         {
-            if(string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
             {
                 return null;
             }
 
             try
             {
-               return await _plantRepository.Search(name);
+                return await _plantRepository.Search(name);
             }
             catch (Exception ex)
             {
@@ -186,7 +183,6 @@ namespace Product.Core.Services
 
                 return null;
             }
-
         }
     }
 }

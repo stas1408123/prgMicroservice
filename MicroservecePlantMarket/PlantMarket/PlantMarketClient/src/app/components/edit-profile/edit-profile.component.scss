@@ -1,0 +1,22 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.submit-button {
+    button {
+      width: 255px;
+    }
+  
+    margin-top: 8px;
+  }
+  
+  .cancel-button {
+    button {
+      width: 145px;
+    }
+  
+    margin-right: 10px;
+    margin-top: 8px;
+  }

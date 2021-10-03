@@ -11,7 +11,6 @@ namespace IdentityServer
 
              new List<Client>
              {
-
                 new Client
                 {
                     ClientId = "client_id",

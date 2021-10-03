@@ -1,0 +1,52 @@
+mat-card {
+    margin: 8px;
+    margin-left: 70px;
+    margin-right: auto;
+  
+    width: 500px;
+    height: 480px;
+  
+    float: left;
+    @media (min-width: 920px) {
+        .mat-card-image {
+            height: 250px;
+            width: auto;
+        }
+    }
+  }
+  
+  ::ng-deep mat-card-content {
+    white-space: pre-line !important;
+    word-wrap: break-word !important;
+  }
+  
+  .stage-button {
+    white-space: pre-line !important;
+    word-wrap: break-word !important;
+    line-height: normal !important;
+  }
+  
+  .camp-buttons {
+    bottom: 12px;
+    position: absolute;
+  }
+  
+  ::ng-deep .mat-list-item-content {
+    display: contents !important;
+  }
+  
+  .clildren-checkbox-list {
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    margin-left:40px;
+  }
+  
+  .child-text {
+    white-space: pre-line;
+    word-wrap: break-word;
+  }
+  
+  .snack-height {
+  height: 500px !important;
+  }

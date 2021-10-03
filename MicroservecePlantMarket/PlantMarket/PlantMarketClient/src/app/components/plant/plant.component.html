@@ -1,0 +1,31 @@
+<mat-card style="min-height: 100% !important; margin-top: 20px;">
+    <mat-card-header>
+        <mat-card-title style="font-size: 20px;">
+            {{plant.name}}
+        </mat-card-title>
+    </mat-card-header>
+  
+    <img class="image" mat-card-image [src]='plant.pictureLink'
+        onerror="this.src='https://get.wallhere.com/photo/raspberries-blackberries-blueberries-berries-1184204.jpg'">
+  
+    <mat-card-content>
+        <div>
+            <p>
+                <b>
+                    Price
+                </b>
+                : {{plant.price}} $
+            </p>
+            <p>
+                <b>
+                    Description
+                </b>
+                : {{plant.shortDescription}}
+            </p>
+        </div>
+        <button mat-stroked-button (click)='addToCart()'>
+            <mat-icon>playlist_add</mat-icon>
+            Add to cart
+        </button>
+    </mat-card-content>
+</mat-card>

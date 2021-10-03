@@ -1,0 +1,23 @@
+<div *ngIf='orders'>
+    <p>Orders</p>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor='let order of orders' hideToggle>
+          <mat-expansion-panel-header class='title'>
+            <mat-panel-title>
+              Order number: {{order.id}}  
+              Total: {{calculatePrice(order)}}$
+              Count of products: {{order.orderedPlants.length}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+            <mat-list-item *ngFor='let orderedPlant of order.orderedPlants' role="listitem">
+                 Name: {{orderedPlant.plantId}} Price: {{orderedPlant.plantId}} $
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<div *ngIf='!orders || orders.length===0' class="empty-orders-list">
+    You have no orders
+</div>

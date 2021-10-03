@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Product.Infrastructure.Repositories.Interfaces;
-using Product.Infrastructure.Entities;
-using Product.Shared;
+﻿using Microsoft.Extensions.Logging;
 using Product.Core.Services.Interfaces;
+using Product.Infrastructure.Entities;
+using Product.Infrastructure.Repositories.Interfaces;
+using Product.Shared;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Product.Core.Services
 {
@@ -15,7 +13,8 @@ namespace Product.Core.Services
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly ILogger<CategoryService> _logger;
-        public CategoryService(ICategoryRepository categoryRepository,
+        public CategoryService(
+            ICategoryRepository categoryRepository,
             ILogger<CategoryService> logger)
         {
             _categoryRepository = categoryRepository;
@@ -24,7 +23,7 @@ namespace Product.Core.Services
 
         public async Task<Category> AddCategoryAsync(Category newCategory)
         {
-            if(newCategory is null)
+            if (newCategory is null)
             {
                 return null;
             }
@@ -57,7 +56,6 @@ namespace Product.Core.Services
             try
             {
                 return await _categoryRepository.DeleteAsync(categoryId);
-
             }
             catch (Exception ex)
             {
@@ -76,7 +74,6 @@ namespace Product.Core.Services
         {
             try
             {
-
                 return await _categoryRepository.GetAllASync();
             }
             catch (Exception ex)
@@ -97,7 +94,7 @@ namespace Product.Core.Services
 
         public async Task<Category> UpdateAsync(Category category)
         {
-            if(category == null)
+            if (category == null)
             {
                 return null;
             }
@@ -116,10 +113,6 @@ namespace Product.Core.Services
 
                 return null;
             }
-
         }
-
-        
-        
     }
 }

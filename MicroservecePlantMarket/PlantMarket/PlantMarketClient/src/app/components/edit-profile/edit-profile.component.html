@@ -1,0 +1,45 @@
+<div *ngIf='data' class="col-md-7 col-lg-8 register-div">
+    <div class="row g-3">
+  
+        <h2 class='form-data'>
+            <b>User info</b>
+        </h2>   
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input [disabled]='!isInEditing' matInput placeholder="Name" [(ngModel)]='data.name'>
+      </mat-form-field>
+
+      <mat-form-field class="form-floating">
+        <mat-label>SurName</mat-label>
+        <input [disabled]='!isInEditing' matInput placeholder="SurName" [(ngModel)]='data.serName'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input [disabled]='!isInEditing' matInput [(ngModel)]='data.email'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Phone Number</mat-label>
+        <input [disabled]='!isInEditing' matInput placeholder="+375(XX)XXX-XX-XX" [(ngModel)]='data.phone'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Delivery adress</mat-label>
+        <input [disabled]='!isInEditing' matInput placeholder="Apartment Or Suite" [(ngModel)]='data.adress'>
+      </mat-form-field>  
+
+      <div class="buttons">
+        <div class="cancel-button">
+          <button mat-stroked-button [disabled]='isInEditing' style="background-color:black; color: #fff;" (click)='startEditing()'>Edit</button>
+        </div>
+        <div class="submit-button">
+            <button mat-raised-button [disabled]='!isInEditing'  
+            [mat-dialog-close]="data" >
+              Save
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>

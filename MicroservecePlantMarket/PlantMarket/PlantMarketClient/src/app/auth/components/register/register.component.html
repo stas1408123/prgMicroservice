@@ -1,0 +1,60 @@
+<div class="col-md-7 col-lg-8 register_div">
+    <div class="row g-3">
+  
+      <h2 class='form-data'>
+        <b>User info</b>
+      </h2>      
+     
+      <mat-form-field class="form-floating">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" [(ngModel)]='data.user.name'>
+      </mat-form-field>
+
+      <mat-form-field class="form-floating">
+        <mat-label>SurName</mat-label>
+        <input matInput placeholder="SurName" [(ngModel)]='data.user.serName'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="you@example.com" [(ngModel)]='data.user.email'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="+375(XX)XXX-XX-XX" [(ngModel)]='data.user.phone'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Delivery adress</mat-label>
+        <input matInput placeholder="Apartment Or Suite" [(ngModel)]='data.user.adress'>
+      </mat-form-field>
+  
+      <h2 class="mb-3 form-data">Access data</h2>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Login</mat-label>
+        <input matInput required [(ngModel)]='data.login'>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" required [(ngModel)]='data.password'>
+      </mat-form-field>
+  
+      <div style="display: flex;">
+        <div class="cancel-button">
+          <button mat-stroked-button (click)='cancelRegistration()'>Back</button>
+        </div>
+        <div class="submit-button">
+          <button mat-raised-button 
+            (click)='register()' style="background-color:black; color: #fff;">Continue</button>
+        </div>
+      </div>
+  
+      <h4 class="mb-3 form-data">
+        <b>Already have an account? <a href='/login'>Log in!</a></b>
+      </h4>
+  
+    </div>
+  </div>

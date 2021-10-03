@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using IdentityServer.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,4 @@ namespace IdentityServer
         { 
         }
     }
-
-    public class Role : Microsoft.AspNetCore.Identity.IdentityRole<int>
-    {
-    }
-
-
 }

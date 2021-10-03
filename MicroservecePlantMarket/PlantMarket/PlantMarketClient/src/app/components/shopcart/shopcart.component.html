@@ -1,0 +1,54 @@
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Available</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf='shopCart'>
+                        <!-- отдельный компонент CartItem??? -->
+                        <tr *ngFor="let shopItem of shopCart.shopItems; let f = index">       
+                            <td> <img src="https://dummyimage.com/50x50/55595c/fff"></td>
+                            <td>{{shopItem.productName}}$</td>
+                            <!-- <td *ngIf="plant.plant.isAvailable; else elseBlock">In stock</td> -->
+                            <ng-template #elseBlock> <td>Out of stock</td></ng-template> 
+                            <td class="text-right">{{shopItem.price}}</td>
+                            <td class="text-right">
+                                <button mat-mini-fab style="background-color: black;" (click)='removeShopCartItem(shopItem)'>
+                                    <mat-icon style="color: #fff;">clear</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total price:</strong></td>
+                            <td class="text-right"><strong>{{calculatePrice()}}$</strong></td>
+                        </tr>
+                    </tbody>
+                    <div *ngIf='!shopCart || shopCart.shopItems?.length===0'>
+                        <p>You have no products</p>
+                    </div>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <button mat-raised-button (click)='onCancelClick()' style="color: black;">Continue Shopping</button> 
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">                   
+                    <button mat-button *ngIf='!shopCart || shopCart.shopItems?.length!==0' (click)='buy()' style="background-color:black; color: #fff;">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

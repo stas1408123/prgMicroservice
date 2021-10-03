@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Product.Infrastructure.Entities;
 using Product.Core.Services.Interfaces;
+using Product.Infrastructure.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProductMicroservice.Controllers
 {
@@ -17,20 +14,18 @@ namespace ProductMicroservice.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
-
 
         [HttpGet]
         [Route("GetAllCategories")]
         public async Task<ActionResult<List<Category>>> GetAllCategories()
         {
             var categories = await _categoryService.GetAllASync();
-            
-            if(categories == null)
+
+            if (categories == null)
             {
                 return BadRequest();
             }
@@ -43,7 +38,7 @@ namespace ProductMicroservice.Controllers
         {
             var isDelete = await _categoryService.DeleteAsync(id);
 
-            if(isDelete== false)
+            if (isDelete == false)
             {
                 return BadRequest();
             }
@@ -51,14 +46,13 @@ namespace ProductMicroservice.Controllers
             return Ok(isDelete);
         }
 
-
         [HttpPost]
         public async Task<ActionResult<Category>> AddNewCategory([FromBody] Category newCategory)
         {
             var category = await _categoryService
                 .AddCategoryAsync(newCategory);
 
-            if(category == null)
+            if (category == null)
             {
                 return BadRequest();
             }
@@ -72,17 +66,12 @@ namespace ProductMicroservice.Controllers
             var category = await _categoryService
                 .UpdateAsync(newCategory);
 
-            if(category == null)
+            if (category == null)
             {
                 return BadRequest();
             }
 
             return Ok(newCategory);
-
         }
-
-        
     }
-
-    
 }
