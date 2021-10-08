@@ -7,6 +7,7 @@ import { LogLevel } from 'angular-auth-oidc-client';
     imports: [
         AuthModule.forRoot({
         config: {
+            postLoginRoute: '/',  //
             clientId: 'angular',
             authority: 'https://localhost:6001',
             responseType: 'code',

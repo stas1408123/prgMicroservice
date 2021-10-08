@@ -81,6 +81,9 @@ namespace Ordering.Infrastructure.Repositories.Implementations
                 _orderContext.Orders
                     .Add(newOrder);
 
+                //_orderContext.OrderedPlants
+                //    .AddRange(newOrder.OrderedPlants);
+
                 await _orderContext.SaveChangesAsync();
 
 

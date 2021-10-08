@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/models/order';
+import { OrderedPlant } from 'src/app/models/orderedPlant';
 import { Plant } from 'src/app/models/plant';
 import { ShopCart } from 'src/app/models/shopCart';
 import { ShopCartItem } from 'src/app/models/shopCartItem';
@@ -18,6 +20,7 @@ import { ShopCartService } from 'src/app/services/shop-cart.service';
 export class ShopcartComponent implements OnInit {
 
   shopCart!: ShopCart;
+  shopCartItem: any;
 
   constructor(
     public dialogRef: MatDialogRef<ShopcartComponent>,
@@ -73,7 +76,7 @@ export class ShopcartComponent implements OnInit {
   }
 
   buy() {
-    this.paymentService.buy(this.shopCart).subscribe(result => {
+    this.paymentService.buy(this.setOrder()).subscribe(result => {
       if (result) {
         this.snackBar.open('Order complite', '', {
           duration: 2000,
@@ -83,9 +86,41 @@ export class ShopcartComponent implements OnInit {
       error => {
         console.log(error)
       });
-
   }
 
+  setOrder(): Order {
+    return {
+      id: 0,
+      name: "string",
+      serName: "ss",
+      adress: "ss",
+      phone: "ss",
+      email: "ss",
+      userId: 1,
+      orderedPlants: this.setOrderedPlants()
+    };
+  }
 
+  setOrderedPlants(): OrderedPlant[] {
+    
+    var orderedPlants:OrderedPlant[] = [];
 
+    this.shopCart.shopItems?.forEach(shopItem => {
+
+      orderedPlants.push(this.shopItemToOrderedPlant(shopItem));
+    })
+
+    return orderedPlants;    
+  }
+
+  shopItemToOrderedPlant(shopCartItem :ShopCartItem) : OrderedPlant{
+    return {
+      id: 0,
+      productName: shopCartItem.productName,
+      pictureLink: shopCartItem.pictureLink,
+      price : shopCartItem.price,
+      plantId: shopCartItem.plantId
+    };
+
+  }
 }

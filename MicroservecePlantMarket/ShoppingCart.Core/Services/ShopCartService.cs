@@ -13,7 +13,6 @@ namespace ShoppingCart.Core.Services
 {
     public class ShopCartService : IShopCartService
     {
-
         private readonly IShopCartRepository _shopCartRepository;
         private readonly ILogger<ShopCartService> _logger;
 
@@ -27,24 +26,7 @@ namespace ShoppingCart.Core.Services
 
         public async Task<bool> AddNewShopCartItemAsync(ShopCartItem shopCartItem)
         {
-            if (shopCartItem is null || shopCartItem.Id != 0)
-            {
-                return false;
-            }
-            try
-            {
-                return await _shopCartRepository.AddNewShopCartItemAsync(shopCartItem);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorByTemplate(
-                    nameof(ShopCartService),
-                    nameof(AddNewShopCartItemAsync),
-                    $"Failed to add new item to cart",
-                    ex);
-
-                return false;
-            }
+            return await _shopCartRepository.AddNewShopCartItemAsync(shopCartItem);
         }
 
         public async Task<ShopCart> CreateShopCartAsync(int userId)

@@ -6,7 +6,7 @@
             <mat-panel-title>
               Order number: {{order.id}}  
               Total: {{calculatePrice(order)}}$
-              Count of products: {{order.orderedPlants.length}}
+              Count of products: {{order.orderedPlants?.length}}
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list role="list">

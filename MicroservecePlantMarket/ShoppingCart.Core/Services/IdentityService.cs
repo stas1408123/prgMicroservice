@@ -4,7 +4,7 @@ using System;
 
 namespace ShoppingCart.Core.Dependency
 {
-    public class IdentityService : IIdentityService
+    internal class IdentityService : IIdentityService    // выкинуть в Api
     {
         private readonly IHttpContextAccessor _context;
 

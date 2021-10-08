@@ -31,7 +31,7 @@ namespace IdentityServer.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { UserName = model.Name };
+                var user = new User { UserName = model.Name };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

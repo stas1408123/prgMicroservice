@@ -30,7 +30,7 @@ export class OrderComponent implements OnInit {
 
     let result: number = 0
 
-    order.orderedPlants.forEach(orderedPlant => {
+    order.orderedPlants?.forEach(orderedPlant => {
       result +=0; //orderedPlant.plant.price;
     })
 

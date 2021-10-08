@@ -37,6 +37,7 @@ import { AddNewCategoryComponent } from './components/admin-dialogd/add-new-cate
 import { CheckAuthService } from './services/check-auth.service';
 import { AuthConfigModule } from './auth/auth-config.module';
 import { AuthModule, LogLevel, OidcSecurityService } from 'angular-auth-oidc-client';
+import { AuthorizationGuard } from './authorization.guard';
 
 
 
@@ -80,6 +81,7 @@ import { AuthModule, LogLevel, OidcSecurityService } from 'angular-auth-oidc-cli
     AuthConfigModule,
   ],
   providers: [
+    AuthorizationGuard,
     OidcSecurityService,
     PlantService,
     CategoryService,

@@ -13,6 +13,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class ListOfPlantsComponent implements OnInit {
 
   plants!:Plant[];
+  public isAuthenticated = false;
 
   constructor(
     private plantService:PlantService,
@@ -20,18 +21,24 @@ export class ListOfPlantsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData}) => 
-    {
-        console.log("List of  IsAuth"+isAuthenticated);
+    this.oidcSecurityService.isAuthenticated$.subscribe(({ isAuthenticated }) => {
+      this.isAuthenticated = isAuthenticated;
+
+      console.warn('authenticated: ', isAuthenticated);
     });
 
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken, configId }) => {
+    // this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData}) => 
+    // {
+    //     console.log("List of  IsAuth"+isAuthenticated);
+    // });
 
-      console.log("IsAuth "+isAuthenticated);
-      console.log("userData "+userData);
-      console.log("AccessToken "+accessToken);
-      console.log("IdToken "+idToken);
-    });
+    // this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken, configId }) => {
+
+    //   console.log("IsAuth "+isAuthenticated);
+    //   console.log("userData "+userData);
+    //   console.log("AccessToken "+accessToken);
+    //   console.log("IdToken "+idToken);
+    // });
 
     this.plantService.getFavPlants().subscribe(result => {
       this.plants=result

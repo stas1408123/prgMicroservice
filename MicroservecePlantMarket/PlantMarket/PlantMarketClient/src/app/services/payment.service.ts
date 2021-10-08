@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Order } from '../models/order';
 import { ShopCart } from '../models/shopCart';
 
 @Injectable({
@@ -13,8 +14,8 @@ export class PaymentService {
   constructor(public http: HttpClient,
     ) { }
 
-  buy(shopCart: ShopCart): Observable<boolean>{
+  buy(order:Order): Observable<boolean>{
 
-      return this.http.post<boolean>(`${this.url}Buy`,shopCart);
+      return this.http.post<boolean>(`${this.url}Buy`,order);
     }
 }

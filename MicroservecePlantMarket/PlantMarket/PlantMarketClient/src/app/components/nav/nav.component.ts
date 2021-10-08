@@ -48,19 +48,34 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.checkAuthService.isUserAuth.subscribe((isUserAuth)=>{
-    //   this.isUserAuth = isUserAuth;
-    //   this.updateUserInfo();
-    // })
-
-    this.configuration = this.oidcSecurityService.getConfiguration();
-    this.userData$ = this.oidcSecurityService.userData$;
-
     this.oidcSecurityService.isAuthenticated$.subscribe(({ isAuthenticated }) => {
       this.isAuthenticated = isAuthenticated;
 
       console.warn('authenticated: ', isAuthenticated);
     });
+
+    // this.checkAuthService.isUserAuth.subscribe((isUserAuth)=>{
+    //   this.isUserAuth = isUserAuth;
+    //   this.updateUserInfo();
+    // })
+
+
+    // this.configuration = this.oidcSecurityService.getConfiguration();
+    // this.userData$ = this.oidcSecurityService.userData$;
+
+    // this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken, configId }) => {
+
+    //   console.log("IsAuth "+isAuthenticated);
+    //   console.log("userData "+userData);
+    //   console.log("AccessToken "+accessToken);
+    //   console.log("IdToken "+idToken);
+    // });
+
+    // this.oidcSecurityService.isAuthenticated$.subscribe(({ isAuthenticated }) => {
+    //   this.isAuthenticated = isAuthenticated;
+
+    //   console.warn('authenticated: ', isAuthenticated);
+    // });
 
     this.categoryService.getAllCategories().subscribe(result => {
       if (result) {

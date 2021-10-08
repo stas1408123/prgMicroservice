@@ -6,15 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Payment.API.Models
+namespace Payment.BLL.Models
 {
     public class OrderedPlant
     {
-
-        [Key]
         public int Id { get; set; }
 
         public int PlantId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public string PictureLink { get; set; }
+
+        public double Price { get; set; }
 
         public virtual Order Order { get; set; }
 

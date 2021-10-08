@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Payment.API.Models
+namespace Payment.BLL.Models
 {
     public class Order
     {

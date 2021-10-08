@@ -82,6 +82,8 @@ namespace OrderMicroservice
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
 
+            services.AddSwaggerDocument();
+
 
 
             //services.AddControllers();
@@ -100,6 +102,9 @@ namespace OrderMicroservice
                 //app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductMicroservice v1"));
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 

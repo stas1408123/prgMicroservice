@@ -88,11 +88,7 @@ namespace IdentityServer
                 new ApiResource("ShopCartApi"),
             };
 
-
-
-
         public static IEnumerable<IdentityResource> GetIdentityResources() =>
-
             new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),

@@ -17,6 +17,5 @@ export interface Order {
 
   userId: number
 
-  orderedPlants: OrderedPlant[]
-
+  orderedPlants?: OrderedPlant[]
 }

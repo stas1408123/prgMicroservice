@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Payment.API.Models
+namespace Payment.BLL.Models
 {
     public record ShopCartItem
     {

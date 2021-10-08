@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.Core.Interfaces;
 using ShoppingCart.Infrastructure.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,29 +15,22 @@ namespace ShopCartMicroservice.Controllers
 
         private readonly IShopCartService _shopCartService;
 
-
-
         public ShopCartController(
             IIdentityService identityService, 
             IShopCartService shopCartService)
         {
-            _shopCartService = shopCartService;
-            _identityService = identityService;
+            _shopCartService = shopCartService ?? throw new ArgumentNullException(nameof(shopCartService));
+            _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<List<ShopCart>>> GetAllCart()
+        public async Task<ICollection<ShopCart>> GetAllCart()
         {
             var products = await _shopCartService
                 .GetAllShopCartsAsync();
 
-            if (products is null)
-            {
-                return BadRequest();
-            }
-
-            return Ok(products);
+            return products;
         }
 
 
@@ -44,31 +38,19 @@ namespace ShopCartMicroservice.Controllers
         [HttpDelete]
         public async Task<ActionResult<bool>> DeleteShopCartItemAsync(int shopCartItemid)
         {
-            var isDelete = await _shopCartService
+            await _shopCartService
                 .DeleteShopCartItemAsync(shopCartItemid);
+            /// если не проходит то кидаем эксепшен
 
-            if (isDelete == false)
-            {
-                return BadRequest();
-            }
-
-            return Ok(isDelete);
-
+            return Ok();
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> AddNewPlantToCart([FromBody] ShopCartItem shopCartItem)
+        public async Task AddNewPlantToCart(
+            [FromBody] ShopCartItem shopCartItem)
         {
-
-            var IsAdd = await _shopCartService
+            await _shopCartService
                 .AddNewShopCartItemAsync(shopCartItem);
-
-            if (!IsAdd)
-            {
-                return BadRequest();
-            }
-
-            return Ok(IsAdd);
         }
 
         [Route("CreateCart")]
@@ -140,24 +122,5 @@ namespace ShopCartMicroservice.Controllers
 
             return Ok(IsAdd);
         }
-
-        //[HttpPost]
-        //[Route("Buy")]
-        //public async Task<ActionResult<Order>> Buy([FromBody] ShopCart shopCar)
-        //{
-            
-
-        //    var result = await _shopCartService.BuyAsync(shopCar);
-
-
-        //    if (result == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    return Ok(result);
-        //}
-
-
     }
 }

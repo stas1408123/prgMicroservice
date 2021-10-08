@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment.API", "Payment.API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantMarket", "PlantMarket\PlantMarket.csproj", "{CE8B8725-C42A-4003-B8C7-502A6CFEDF4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment.BLL", "Payment.BLL\Payment.BLL.csproj", "{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{CE8B8725-C42A-4003-B8C7-502A6CFEDF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE8B8725-C42A-4003-B8C7-502A6CFEDF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE8B8725-C42A-4003-B8C7-502A6CFEDF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{BD8848A7-5716-49F2-A657-661154D961D8} = {DCADAACB-ED1B-42C3-8397-35DCD99D42BC}
 		{63A3D806-5155-4946-B4F0-EEBE31FFC617} = {BD8848A7-5716-49F2-A657-661154D961D8}
 		{CE8B8725-C42A-4003-B8C7-502A6CFEDF4E} = {EB27665C-37C1-45F5-A0E0-972985AA8016}
+		{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE} = {BD8848A7-5716-49F2-A657-661154D961D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16789650-3D98-4EA1-9A20-6C41B975FB3B}

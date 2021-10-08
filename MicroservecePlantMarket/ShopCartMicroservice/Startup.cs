@@ -42,8 +42,9 @@ namespace ShopCartMicroservice
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<ShoppingCartContext>(options =>
-                options.UseSqlServer(Configuration
-                    .GetSection("ConnectionStrings")
+                options.UseSqlServer(
+                    Configuration
+                        .GetSection("ConnectionStrings")
                         .GetValue<string>("DefaultDbConnection")));
 
 
@@ -77,11 +78,13 @@ namespace ShopCartMicroservice
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopCartMicroservice", Version = "v1" });
-            });
+            //services.AddControllers();
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopCartMicroservice", Version = "v1" });
+            //});
+
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,9 +93,12 @@ namespace ShopCartMicroservice
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopCartMicroservice v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopCartMicroservice v1"));
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 
@@ -107,6 +113,8 @@ namespace ShopCartMicroservice
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            //app.UseExceptionHandler()      ??? Чек msdn
 
             app.UseEndpoints(endpoints =>
             {

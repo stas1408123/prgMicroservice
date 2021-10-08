@@ -8,6 +8,12 @@ export interface OrderedPlant {
 
     plantId: number;
 
+    productName: string;
+
+    pictureLink: string;
+
+    price : number;
+
     Order?: Order;
 
     OrderId?: number;

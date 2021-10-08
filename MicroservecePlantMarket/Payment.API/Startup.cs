@@ -1,20 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Payment.API.Services.Implementations;
-using Payment.API.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+using Payment.BLL.Api.Client;
+using Payment.BLL.Services;
+using Payment.BLL.Services.Interfaces;
 
 namespace Payment.API
 {
@@ -33,7 +26,9 @@ namespace Payment.API
             services.AddHttpClient();
 
             services.AddTransient<IPaymentService, PaymentService>();
-            
+            services.AddTransient<OrderClient>();
+            services.AddTransient<ShopCartClient>();
+
 
             services.AddCors(config =>
             {

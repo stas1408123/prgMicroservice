@@ -40,14 +40,15 @@ export class PlantComponent implements OnInit {
       this.isAuthenticated = isAuthenticated;
 
       console.warn('authenticated: ', isAuthenticated);
+      
     });
 
-    this.userData = this.oidcSecurityService.userData$;
+    //this.userData = this.oidcSecurityService.userData$;
 
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData}) => 
-    {
-        console.log(userData);
-    });
+    // this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData}) => 
+    // {
+    //     console.log(userData);
+    // });
 
     
 
