@@ -1,16 +1,16 @@
-﻿using Product.Infrastructure.Entities;
+﻿using Product.DAL.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Product.Core.Services.Interfaces
+namespace Product.BLL.Services.Interfaces
 {
     public interface IPlantService
     {
-        Task<List<Plant>> GetAllAsync();
+        Task<IEnumerable<Plant>> GetAllAsync();
 
         Task<Plant> GetPlantByIdAsync(int plantId);
 
-        Task<List<Plant>> GetFavPlants();
+        Task<IEnumerable<Plant>> GetFavPlants();
 
         Task<Plant> AddPlantAsync(Plant newPlant);
 
@@ -18,8 +18,8 @@ namespace Product.Core.Services.Interfaces
 
         Task<bool> DeleteAsync(int plantId);
 
-        Task<List<Plant>> GetAllPalantInCategory(int categoryId);
+        Task<IEnumerable<Plant>> GetAllPalantInCategory(int categoryId);
 
-        Task<List<Plant>> Search(string name);
+        Task<IEnumerable<Plant>> Search(string name);
     }
 }

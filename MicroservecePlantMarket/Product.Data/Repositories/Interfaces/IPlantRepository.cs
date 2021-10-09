@@ -1,28 +1,25 @@
-﻿using System;
+﻿using Product.DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Product.Infrastructure.Entities;
 
-namespace Product.Infrastructure.Repositories.Interfaces
+namespace Product.DAL.Repositories.Interfaces
 {
     public interface IPlantRepository
     {
-        Task<List<Entities.Plant>> GetAllAsync();
+        Task<ICollection<Plant>> GetAllAsync();
 
-        Task<Entities.Plant> GetPlantByIdAsync(int plantId);
+        Task<Plant> GetPlantByIdAsync(int plantId);
 
-        Task<List<Entities.Plant>> GetFavPlants();
+        Task<ICollection<Plant>> GetFavPlants();
 
-        Task<Entities.Plant> AddPlantAsync(Entities.Plant newPlant);
+        Task<Plant> AddPlantAsync(Plant newPlant);
 
-        Task<Entities.Plant> UpdateAsync(Entities.Plant plant);
+        Task<Plant> UpdateAsync(Plant plant);
 
         Task<bool> DeleteAsync(int plantId);
 
-        Task<List<Entities.Plant>> GetAllPalantInCategory(int categoryId);
+        Task<ICollection<Plant>> GetAllPalantInCategory(int categoryId);
 
-        Task<List<Entities.Plant>> Search(string name);
+        Task<ICollection<Plant>> Search(string name);
     }
 }

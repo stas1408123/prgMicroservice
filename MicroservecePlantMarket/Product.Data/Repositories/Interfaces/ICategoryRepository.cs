@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Product.DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Product.Infrastructure.Entities;
 
-namespace Product.Infrastructure.Repositories.Interfaces
+namespace Product.DAL.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {
-        Task<List<Category>> GetAllASync();
+        Task<ICollection<Category>> GetAllASync();
 
         Task<Category> AddCategoryAsync(Category newCategory);
 

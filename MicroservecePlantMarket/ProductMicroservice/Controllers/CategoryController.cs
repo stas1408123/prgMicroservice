@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Product.Core.Services.Interfaces;
-using Product.Infrastructure.Entities;
+using Product.BLL.Services.Interfaces;
+using Product.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,21 +17,17 @@ namespace ProductMicroservice.Controllers
 
         public CategoryController(ICategoryService categoryService)
         {
-            _categoryService = categoryService;
+            _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
         }
 
         [HttpGet]
         [Route("GetAllCategories")]
-        public async Task<ActionResult<List<Category>>> GetAllCategories()
+        [AllowAnonymous]
+        public async Task<IEnumerable<Category>> GetAllCategories()
         {
-            var categories = await _categoryService.GetAllASync();
 
-            if (categories == null)
-            {
-                return BadRequest();
-            }
+            return await _categoryService.GetAllAsync();
 
-            return Ok(categories);
         }
 
         [HttpDelete]

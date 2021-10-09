@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Product.Core.Services.Interfaces;
-using Product.Infrastructure.Entities;
+using Product.BLL.Services.Interfaces;
+using Product.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +22,7 @@ namespace ProductMicroservice.Controllers
 
         [HttpGet]
         [Route("GetAllProducts")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Plant>>> GetAllProducts()
         {
             var products = await _plantService
@@ -37,6 +38,7 @@ namespace ProductMicroservice.Controllers
 
         [HttpGet]
         [Route("GetFavPlants")]
+        [AllowAnonymous]
         public async Task<ActionResult<Plant>> GetFavPlants()
         {
             var products = await _plantService
@@ -52,6 +54,7 @@ namespace ProductMicroservice.Controllers
 
         [HttpGet]
         [Route("GetPlant")]
+        [AllowAnonymous]
         public async Task<ActionResult<Plant>> GetPlantById(int id)
         {
             var plant = await _plantService
@@ -112,6 +115,7 @@ namespace ProductMicroservice.Controllers
 
         [HttpGet]
         [Route("GetAllPalantInCategory")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Plant>>> GetPlantInCategory(int categoryId)
         {
 
@@ -128,6 +132,7 @@ namespace ProductMicroservice.Controllers
 
         [HttpGet]
         [Route("Search")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Plant>>> Search(string name)
         {
             var plant = await _plantService

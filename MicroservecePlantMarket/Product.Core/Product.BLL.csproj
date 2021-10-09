@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Product.Data\Product.Infrastructure.csproj" />
+    <ProjectReference Include="..\Product.Data\Product.DAL.csproj" />
     <ProjectReference Include="..\Product.Shared\Product.Shared.csproj" />
   </ItemGroup>
 

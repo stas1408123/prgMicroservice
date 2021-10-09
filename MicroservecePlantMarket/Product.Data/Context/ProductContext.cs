@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Product.Infrastructure.Entities;
+using Product.DAL.Entities;
 
-namespace Product.Infrastructure.Context
+namespace Product.DAL.Context
 {
     public class ProductContext : DbContext
     {
@@ -11,10 +11,8 @@ namespace Product.Infrastructure.Context
             Database.EnsureCreated();
         }
 
-
         public DbSet<Plant> Plants { get; set; }
         public DbSet<Category> Categories { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

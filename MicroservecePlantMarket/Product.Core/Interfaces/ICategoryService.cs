@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Product.DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Product.Infrastructure.Entities;
 
-namespace Product.Core.Services.Interfaces
+namespace Product.BLL.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<List<Category>> GetAllASync();
+        Task<IEnumerable<Category>> GetAllAsync();
 
         Task<Category> AddCategoryAsync(Category newCategory);
 

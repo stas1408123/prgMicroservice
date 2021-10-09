@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web Apps", "Web Apps", "{EB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{3C2B6484-0DD4-4B29-951B-015C3E35880F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Core", "Product.Core\Product.Core.csproj", "{FD977842-D28A-4451-939A-A20CDD82B6A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.BLL", "Product.Core\Product.BLL.csproj", "{FD977842-D28A-4451-939A-A20CDD82B6A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Infrastructure", "Product.Data\Product.Infrastructure.csproj", "{24686929-5C1D-478E-AE0A-222539D44D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.DAL", "Product.Data\Product.DAL.csproj", "{24686929-5C1D-478E-AE0A-222539D44D44}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Shared", "Product.Shared\Product.Shared.csproj", "{4A2651B8-8C62-4BA6-A2B2-870F29E49727}"
 EndProject
@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment.API", "Payment.API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantMarket", "PlantMarket\PlantMarket.csproj", "{CE8B8725-C42A-4003-B8C7-502A6CFEDF4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment.BLL", "Payment.BLL\Payment.BLL.csproj", "{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment.BLL", "Payment.BLL\Payment.BLL.csproj", "{91AFDA38-4DD4-4AF0-819E-764FFEFB29CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

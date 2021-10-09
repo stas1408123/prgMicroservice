@@ -8,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Product.Core.Dependency;
-using Product.Infrastructure.Context;
-using Product.Infrastructure.Dependency;
+using Product.BLL.Dependency;
+using Product.DAL.Context;
+using Product.DAL.Dependency;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace ProductMicroservice
@@ -23,8 +23,6 @@ namespace ProductMicroservice
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBusinessDependencies();
@@ -33,7 +31,7 @@ namespace ProductMicroservice
             services.AddDbContext<ProductContext>(options =>
                 options.UseSqlServer(Configuration
                     .GetSection("ConnectionStrings")
-                        .GetValue<string>("DefaultDbConnection")));
+                    .GetValue<string>("DefaultDbConnection")));
 
             services.AddCors(config =>
             {
@@ -51,7 +49,6 @@ namespace ProductMicroservice
                 {
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
-                        //ClockSkew = TimeSpan.FromSeconds(5),
                         ValidateAudience = false
                     };
 
@@ -68,21 +65,17 @@ namespace ProductMicroservice
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
 
-
-
-            //services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProductMicroservice", Version = "v1" });
-            //});
         }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductMicroservice v1"));
+            }
+            else
+            {
+                app.UseExceptionHandler();
             }
 
             app.UseHttpsRedirection();

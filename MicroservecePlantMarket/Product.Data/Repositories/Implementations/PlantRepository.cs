@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Product.Infrastructure.Context;
-using Product.Infrastructure.Entities;
-using Product.Infrastructure.Repositories.Interfaces;
+using Product.DAL.Context;
+using Product.DAL.Entities;
+using Product.DAL.Repositories.Interfaces;
 using Product.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Product.Infrastructure.Repositories.Implementations
+namespace Product.DAL.Repositories.Implementations
 {
-    public class PlantRepository : IPlantRepository
+    internal class PlantRepository : IPlantRepository
     {
         private readonly ProductContext _productContext;
         private readonly ILogger<PlantRepository> _logger;
@@ -28,7 +28,6 @@ namespace Product.Infrastructure.Repositories.Implementations
         {
             try
             {
-
                 await _productContext.Plants.AddAsync(newPlant);
 
                 await _productContext.SaveChangesAsync();
@@ -55,6 +54,7 @@ namespace Product.Infrastructure.Repositories.Implementations
                 {
                     return false;
                 }
+
                 var exProduct = await _productContext.Plants
                         .FirstOrDefaultAsync(item => item.Id == plantId);
 
@@ -77,7 +77,7 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         }
 
-        public async Task<List<Plant>> GetAllAsync()
+        public async Task<ICollection<Plant>> GetAllAsync()
         {
             try
             {
@@ -100,7 +100,7 @@ namespace Product.Infrastructure.Repositories.Implementations
             }
         }
 
-        public async Task<List<Plant>> GetFavPlants()
+        public async Task<ICollection<Plant>> GetFavPlants()
         {
             try
             {
@@ -127,6 +127,11 @@ namespace Product.Infrastructure.Repositories.Implementations
         {
             try
             {
+                if (!_productContext.Plants.Any(p => p.Id == plantId))
+                {
+                    return null;
+                }
+
                 return await _productContext.Plants
                         .FirstOrDefaultAsync(item => item.Id == plantId);
             }
@@ -170,12 +175,10 @@ namespace Product.Infrastructure.Repositories.Implementations
 
         }
 
-        public async Task<List<Plant>> GetAllPalantInCategory(int categoryId)
+        public async Task<ICollection<Plant>> GetAllPalantInCategory(int categoryId)
         {
-
             try
             {
-
                 var plants = _productContext.Plants
                     .Include(item => item.Category)
                     .Where(item => item.Category.Id == categoryId);
@@ -192,10 +195,9 @@ namespace Product.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
 
-        public async Task<List<Plant>> Search(string name)
+        public async Task<ICollection<Plant>> Search(string name)
         {
             try
             {

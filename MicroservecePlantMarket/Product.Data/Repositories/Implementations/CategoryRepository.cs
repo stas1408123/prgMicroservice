@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Product.Infrastructure.Context;
-using Product.Infrastructure.Entities;
-using Product.Infrastructure.Repositories.Interfaces;
+using Product.DAL.Context;
+using Product.DAL.Entities;
+using Product.DAL.Repositories.Interfaces;
 using Product.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace Product.Infrastructure.Repositories.Implementations
+namespace Product.DAL.Repositories.Implementations
 {
-    public class CategoryRepository : ICategoryRepository
+    internal class CategoryRepository : ICategoryRepository
     {
         private readonly ProductContext _productContext;
         private readonly ILogger<CategoryRepository> _logger;
@@ -27,8 +28,10 @@ namespace Product.Infrastructure.Repositories.Implementations
         {
             try
             {
-                await _productContext.AddAsync<Category>(newCategory);
+                await _productContext.Categories.AddAsync(newCategory);
+
                 await _productContext.SaveChangesAsync();
+
                 return newCategory;
             }
             catch (Exception ex)
@@ -41,7 +44,6 @@ namespace Product.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
 
         public async Task<bool> DeleteAsync(int categoryId)
@@ -49,7 +51,6 @@ namespace Product.Infrastructure.Repositories.Implementations
             try
             {
                 var exCategory = await _productContext.Categories
-                    .Include(item => item.Plants)
                     .FirstOrDefaultAsync(i => i.Id == categoryId);
 
                 _productContext.Categories
@@ -69,15 +70,13 @@ namespace Product.Infrastructure.Repositories.Implementations
 
                 return false;
             }
-
         }
 
-        public async Task<List<Category>> GetAllASync()
+        public async Task<ICollection<Category>> GetAllASync()
         {
             try
             {
                 var categories = await _productContext.Categories
-                    .Include(item => item.Plants)
                     .ToListAsync();
 
                 return categories;
@@ -94,29 +93,21 @@ namespace Product.Infrastructure.Repositories.Implementations
             }
         }
 
-
-
         public async Task<Category> UpdateAsync(Category category)
         {
             try
             {
-                var exCategory = await _productContext.Categories
-                    .Include(item => item.Plants)
-                    .FirstOrDefaultAsync(item => item.Id == category.Id);
-
-                exCategory.Name = category.Name;
-                exCategory.Description = category.Description;
-
-
-                if (exCategory.Plants.Count != 0)
+                if (!_productContext.Categories.Any(p => p.Id == category.Id))
                 {
-                    _productContext.Plants
-                        .RemoveRange(exCategory.Plants);
+                    return null;
                 }
 
-                exCategory.Plants.AddRange(category.Plants);
+                _productContext.Entry(category).State = EntityState.Modified;
 
                 await _productContext.SaveChangesAsync();
+
+                var exCategory = await _productContext.Categories
+                    .FirstOrDefaultAsync(item => item.Id == category.Id);
 
                 return exCategory;
             }

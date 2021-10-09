@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Product.Core.Services;
-using Product.Core.Services.Interfaces;
+using Product.BLL.Services;
+using Product.BLL.Services.Interfaces;
 
-namespace Product.Core.Dependency
+namespace Product.BLL.Dependency
 {
     public static class BusinessRegistry
     {
