@@ -22,23 +22,8 @@ namespace PlantMarket
 
         private const string AngularClientName = "PlantMarketClient";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            //services.AddDbContext<PlantMarketContext>(options =>
-            //    options.UseSqlServer(Configuration
-            //        .GetSection("ConnectionStrings")
-            //            .GetValue<string>("DefaultDbConnection")));
-
-
-            //services.RegisterDependency();
-
-
-
-            /*services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();*/
 
             services.AddAuthentication(config =>
             {
@@ -100,7 +85,6 @@ namespace PlantMarket
             });*/
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 

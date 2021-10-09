@@ -6,7 +6,7 @@ namespace Ordering.Core.Interfaces
 {
     public interface IOrderService
     {
-        Task<List<Order>> GetAllAsync();
+        Task<IEnumerable<Order>> GetAllAsync();
 
         Task<Order> GetOrderByIdAsync(int orderId);
 

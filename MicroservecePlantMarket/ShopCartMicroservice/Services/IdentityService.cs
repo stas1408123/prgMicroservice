@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using ShoppingCart.Core.Interfaces;
+using ShoppingCart.Api.Services.Interfaces;
 using System;
 
-namespace ShoppingCart.Core.Dependency
+namespace ShoppingCart.Api.Services
 {
-    internal class IdentityService : IIdentityService    // выкинуть в Api
+    internal class IdentityService : IIdentityService    
     {
         private readonly IHttpContextAccessor _context;
 

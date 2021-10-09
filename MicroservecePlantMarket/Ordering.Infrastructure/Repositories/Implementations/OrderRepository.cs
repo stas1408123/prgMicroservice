@@ -22,13 +22,15 @@ namespace Ordering.Infrastructure.Repositories.Implementations
             _orderContext = orderContext;
             _logger = logger;
         }
-        public async Task<List<Order>> GetAllAsync()
+
+        public async Task<ICollection<Order>> GetAllAsync()
         {
             try
             {
                 var orders = await _orderContext.Orders
                     .Include(item => item.OrderedPlants)
                     .ToListAsync();
+
                 return orders;
             }
             catch (Exception ex)
@@ -41,17 +43,14 @@ namespace Ordering.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
 
         public async Task<Order> GetOrderByIdAsync(int orderId)
         {
             try
             {
-
                 var order = await _orderContext.Orders
                     .Include(item => item.OrderedPlants)
-                    //.ThenInclude(plant => plant.Plant)
                     .FirstOrDefaultAsync(item => item.Id == orderId);
 
                 return order;
@@ -66,26 +65,16 @@ namespace Ordering.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
 
         public async Task<Order> AddOrderAsync(Order newOrder)
         {
-            if (newOrder is null || newOrder.Id != 0)
-            {
-                return null;
-            }
-
             try
             {
                 _orderContext.Orders
                     .Add(newOrder);
 
-                //_orderContext.OrderedPlants
-                //    .AddRange(newOrder.OrderedPlants);
-
                 await _orderContext.SaveChangesAsync();
-
 
                 var exOrder = await _orderContext.Orders
                     .FirstOrDefaultAsync(item => item.CreationDate == newOrder.CreationDate
@@ -107,24 +96,11 @@ namespace Ordering.Infrastructure.Repositories.Implementations
 
         public async Task<bool> DeleteAsync(int orderId)
         {
-            if (orderId == 0)
-            {
-                return false;
-            }
             try
             {
-
                 var exOrder = await _orderContext.Orders
                         .Include(item => item.OrderedPlants)
-                        //.ThenInclude(plant => plant.Plant)
                         .FirstOrDefaultAsync(item => item.Id == orderId);
-
-                exOrder.OrderedPlants = new List<OrderedPlant>();
-
-                await _orderContext.SaveChangesAsync();
-
-                _orderContext.Orders
-                    .Remove(exOrder);
 
                 await _orderContext.SaveChangesAsync();
 
@@ -140,7 +116,6 @@ namespace Ordering.Infrastructure.Repositories.Implementations
 
                 return false;
             }
-
         }
 
         public async Task<Order> UpdateAsync(Order order)
@@ -153,7 +128,6 @@ namespace Ordering.Infrastructure.Repositories.Implementations
             {
                 var exOrder = await _orderContext.Orders
                         .Include(item => item.OrderedPlants)
-                        //.ThenInclude(plant => plant.Plant)
                         .FirstOrDefaultAsync(item => item.Id == order.Id);
 
                 if (exOrder != null)
@@ -183,16 +157,15 @@ namespace Ordering.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrdersByUserIdAsync(int userid)
+        public async Task<ICollection<Order>> GetAllOrdersByUserIdAsync(int userid)
         {
             try
             {
                 var orders = await _orderContext.Orders
                     .Include(item => item.OrderedPlants)
-                    .Where(order => order.UserId==userid)
+                    .Where(order => order.UserId == userid)
                     .ToListAsync();
 
                 return orders;
@@ -208,33 +181,5 @@ namespace Ordering.Infrastructure.Repositories.Implementations
                 return null;
             }
         }
-
-        //public async Task<List<Order>> GetAllUserAsync(User user)
-        //{
-        //    if (user is null)
-        //    {
-        //        return null;
-        //    }
-        //    try
-        //    {
-        //        var orders = await _orderContext.Orders
-        //            .Include(item => item.OrderedPlants)
-        //            .ThenInclude(plant => plant.Plant)
-        //            .Where(order => order.UserId == user.Id)
-        //            .ToListAsync();
-
-        //        return orders;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogErrorByTemplate(
-        //            nameof(OrderService),
-        //            nameof(GetAllAsync),
-        //            $"Cannot get data from database",
-        //            ex);
-
-        //        return null;
-        //    }
-        //}
     }
 }

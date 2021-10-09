@@ -3,24 +3,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using ShoppingCart.Core.Dependency;
-using ShoppingCart.Infrastructure.Context;
-using ShoppingCart.Infrastructure.Dependency;
-using System;
-using System.Collections.Generic;
+using ShoppingCart.Api.Services;
+using ShoppingCart.Api.Services.Interfaces;
+using ShoppingCart.BLL.Dependency;
+using ShoppingCart.DAL.Context;
+using ShoppingCart.DAL.Dependency;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShopCartMicroservice
 {
@@ -33,12 +27,14 @@ namespace ShopCartMicroservice
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddBusinessDependencies();
+
             services.AddDataDependencies();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<ShoppingCartContext>(options =>
@@ -47,11 +43,13 @@ namespace ShopCartMicroservice
                         .GetSection("ConnectionStrings")
                         .GetValue<string>("DefaultDbConnection")));
 
-
             services.AddCors(config =>
             {
                 config.AddPolicy("DefaultPolicy",
-                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
@@ -61,7 +59,6 @@ namespace ShopCartMicroservice
                 {
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
-                        //ClockSkew = TimeSpan.FromSeconds(5),
                         ValidateAudience = false
                     };
 
@@ -78,12 +75,6 @@ namespace ShopCartMicroservice
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
 
-            //services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopCartMicroservice", Version = "v1" });
-            //});
-
             services.AddSwaggerDocument();
         }
 
@@ -93,8 +84,10 @@ namespace ShopCartMicroservice
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopCartMicroservice v1"));
+            }
+            else
+            {
+                app.UseExceptionHandler();
             }
 
             app.UseOpenApi();
@@ -113,8 +106,6 @@ namespace ShopCartMicroservice
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            //app.UseExceptionHandler()      ??? Чек msdn
 
             app.UseEndpoints(endpoints =>
             {

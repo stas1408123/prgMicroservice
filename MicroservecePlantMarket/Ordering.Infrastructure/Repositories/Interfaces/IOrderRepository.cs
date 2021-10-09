@@ -6,7 +6,7 @@ namespace Ordering.Infrastructure.Repositories.Interfaces
 {
     public interface IOrderRepository
     {
-        Task<List<Order>> GetAllAsync();
+        Task<ICollection<Order>> GetAllAsync();
 
         Task<Order> GetOrderByIdAsync(int orderId);
 
@@ -16,6 +16,6 @@ namespace Ordering.Infrastructure.Repositories.Interfaces
 
         Task<Order> UpdateAsync(Order order);
 
-        Task<IEnumerable<Order>> GetAllOrdersByUserIdAsync(int userid);
+        Task<ICollection<Order>> GetAllOrdersByUserIdAsync(int userid);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Core.Interfaces
+﻿namespace ShoppingCart.Api.Services.Interfaces
 {
     public interface IIdentityService
     {

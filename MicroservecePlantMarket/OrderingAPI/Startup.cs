@@ -35,7 +35,6 @@ namespace OrderMicroservice
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IOrderRepository, OrderRepository>();
@@ -43,6 +42,7 @@ namespace OrderMicroservice
             services.AddTransient<IOrderService, OrderService>();
 
             services.AddTransient<IIdentityService, IdentityService>();
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<OrderContext>(options =>
@@ -50,22 +50,22 @@ namespace OrderMicroservice
                     .GetSection("ConnectionStrings")
                         .GetValue<string>("DefaultDbConnection")));
 
-
             services.AddCors(config =>
             {
                 config.AddPolicy("DefaultPolicy",
-                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub"); //?
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, config =>
                 {
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
-                        //ClockSkew = TimeSpan.FromSeconds(5),
                         ValidateAudience = false
                     };
 
@@ -83,24 +83,17 @@ namespace OrderMicroservice
                 });
 
             services.AddSwaggerDocument();
-
-
-
-            //services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProductMicroservice", Version = "v1" });
-            //});
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductMicroservice v1"));
+            }
+            else
+            {
+                app.UseExceptionHandler();
             }
 
             app.UseOpenApi();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShoppingCart.Infrastructure.Entities;
+using ShoppingCart.DAL.Entities;
 
-namespace ShoppingCart.Infrastructure.Context
+namespace ShoppingCart.DAL.Context
 {
     public class ShoppingCartContext : DbContext
     {
@@ -16,7 +16,6 @@ namespace ShoppingCart.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             //
             base.OnModelCreating(modelBuilder);
         }

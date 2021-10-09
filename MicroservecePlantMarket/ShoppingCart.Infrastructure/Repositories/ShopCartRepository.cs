@@ -1,21 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ShoppingCart.Infrastructure.Context;
-using ShoppingCart.Infrastructure.Entities;
-using ShoppingCart.Infrastructure.Repositories.Interfaces;
+using ShoppingCart.DAL.Context;
+using ShoppingCart.DAL.Entities;
+using ShoppingCart.DAL.Repositories.Interfaces;
 using ShoppingCart.Shared;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoppingCart.Infrastructure.Repositories.Implementations
+namespace ShoppingCart.DAL.Repositories.Implementations
 {
-    class ShopCartRepository : IShopCartRepository
+    internal class ShopCartRepository : IShopCartRepository
     {
         private readonly ShoppingCartContext _shoppingCartContext;
         private readonly ILogger<ShopCartRepository> _logger;
 
-        public ShopCartRepository( 
+        public ShopCartRepository(
             ShoppingCartContext shoppingCartContext,
             ILogger<ShopCartRepository> logger)
         {
@@ -25,26 +25,12 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
 
         public async Task<bool> AddNewShopCartItemAsync(ShopCartItem shopCartItem)
         {
-            if (shopCartItem is null || shopCartItem.Id != 0)
-            {
-                return false;
-            }
             try
             {
                 _shoppingCartContext.ShopCartItems
-                    .Add(
-                    new ShopCartItem
-                    {
-                        PlantId = shopCartItem.PlantId,
-                        ShopCartId = shopCartItem.ShopCartId,
-                        PictureLink=shopCartItem.PictureLink,
-                        Price=shopCartItem.Price,
-                        ProductName=shopCartItem.ProductName,
-                    }
-                    );
+                    .Add(shopCartItem);
 
                 await _shoppingCartContext.SaveChangesAsync();
-
 
                 return true;
             }
@@ -64,14 +50,12 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
         {
             try
             {
-
                 var newShopCart = new ShopCart
                 {
                     UserId = userId,
                 };
 
                 await _shoppingCartContext.ShopCarts.AddAsync(newShopCart);
-
 
                 await _shoppingCartContext.SaveChangesAsync();
 
@@ -93,10 +77,8 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
         {
             try
             {
-
                 var exCartItem = await _shoppingCartContext.ShopCartItems
                     .FirstOrDefaultAsync(item => item.Id == shopCartItemId);
-
 
                 _shoppingCartContext.ShopCartItems
                     .Remove(exCartItem);
@@ -104,7 +86,6 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
                 await _shoppingCartContext.SaveChangesAsync();
 
                 return true;
-
             }
             catch (Exception ex)
             {
@@ -118,7 +99,7 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
             }
         }
 
-        public async Task<List<ShopCart>> GetAllShopCartsAsync()
+        public async Task<ICollection<ShopCart>> GetAllShopCartsAsync()
         {
             try
             {
@@ -144,7 +125,6 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
         {
             try
             {
-
                 var exShopCart = await _shoppingCartContext.ShopCarts
                     .Include(p => p.ShopItems)
                     .FirstOrDefaultAsync(item => item.UserId == userId);
@@ -161,11 +141,6 @@ namespace ShoppingCart.Infrastructure.Repositories.Implementations
 
                 return null;
             }
-        }
-
-        public Task<ShopCart> Update(ShopCart shopCart)
-        {
-            throw new NotImplementedException();
         }
     }
 }

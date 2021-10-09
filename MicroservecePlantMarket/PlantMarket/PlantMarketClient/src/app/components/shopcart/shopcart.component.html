@@ -16,10 +16,10 @@
                         <!-- отдельный компонент CartItem??? -->
                         <tr *ngFor="let shopItem of shopCart.shopItems; let f = index">       
                             <td> <img src="https://dummyimage.com/50x50/55595c/fff"></td>
-                            <td>{{shopItem.productName}}$</td>
+                            <td>{{shopItem.productName}}</td>
                             <!-- <td *ngIf="plant.plant.isAvailable; else elseBlock">In stock</td> -->
                             <ng-template #elseBlock> <td>Out of stock</td></ng-template> 
-                            <td class="text-right">{{shopItem.price}}</td>
+                            <td class="text-right">{{shopItem.price}}$</td>
                             <td class="text-right">
                                 <button mat-mini-fab style="background-color: black;" (click)='removeShopCartItem(shopItem)'>
                                     <mat-icon style="color: #fff;">clear</mat-icon>

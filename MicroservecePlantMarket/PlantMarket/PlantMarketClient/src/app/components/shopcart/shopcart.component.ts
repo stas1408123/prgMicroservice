@@ -20,7 +20,6 @@ import { ShopCartService } from 'src/app/services/shop-cart.service';
 export class ShopcartComponent implements OnInit {
 
   shopCart!: ShopCart;
-  shopCartItem: any;
 
   constructor(
     public dialogRef: MatDialogRef<ShopcartComponent>,
@@ -63,9 +62,9 @@ export class ShopcartComponent implements OnInit {
 
   removeShopCartItem(shopCartItem: ShopCartItem) {
     
+    this.shopCart.shopItems?.splice(this.shopCart.shopItems?.indexOf(shopCartItem), 1)
     this.shopCartService.deleteShopCartItem(shopCartItem.id).subscribe(result => {
       if (result) {
-        this.shopCart.shopItems?.splice(this.shopCart.shopItems?.indexOf(shopCartItem), 1)
         this.snackBar.open('Item was deleted', '', {
           duration: 2000,
         })

@@ -1,27 +1,19 @@
-﻿using Microsoft.Extensions.Logging;
-using ShoppingCart.Core.Interfaces;
-using ShoppingCart.Infrastructure.Entities;
-using ShoppingCart.Infrastructure.Repositories.Interfaces;
-using ShoppingCart.Shared;
+﻿using ShoppingCart.BLL.Interfaces;
+using ShoppingCart.DAL.Entities;
+using ShoppingCart.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingCart.Core.Services
+namespace ShoppingCart.BLL.Services
 {
-    public class ShopCartService : IShopCartService
+    internal class ShopCartService : IShopCartService
     {
         private readonly IShopCartRepository _shopCartRepository;
-        private readonly ILogger<ShopCartService> _logger;
 
-        public ShopCartService(
-            IShopCartRepository shopCartRepository,
-            ILogger<ShopCartService> logger)
+        public ShopCartService(IShopCartRepository shopCartRepository)
         {
-            _shopCartRepository = shopCartRepository;
-            _logger = logger;
+            _shopCartRepository = shopCartRepository ?? throw new ArgumentNullException(nameof(shopCartRepository));
         }
 
         public async Task<bool> AddNewShopCartItemAsync(ShopCartItem shopCartItem)
@@ -31,84 +23,22 @@ namespace ShoppingCart.Core.Services
 
         public async Task<ShopCart> CreateShopCartAsync(int userId)
         {
-            try
-            {
-                return await _shopCartRepository.CreateShopCartAsync(userId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorByTemplate(
-                    nameof(ShopCartService),
-                    nameof(CreateShopCartAsync),
-                    "Failed creating cart",
-                    ex);
-
-                return null;
-            }
-
+            return await _shopCartRepository.CreateShopCartAsync(userId);
         }
 
         public async Task<bool> DeleteShopCartItemAsync(int shopCartItemId)
         {
-            try
-            {
-                return await _shopCartRepository.DeleteShopCartItemAsync(shopCartItemId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorByTemplate(
-                    nameof(ShopCartService),
-                    nameof(DeleteShopCartItemAsync),
-                    $"Cannot dalete ShopCart item shopcart id={shopCartItemId}",
-                    ex);
-
-                return false;
-            }
-
+            return await _shopCartRepository.DeleteShopCartItemAsync(shopCartItemId);
         }
-
 
         public async Task<ShopCart> GetCartByUserIdAsync(int userId)
         {
-            try
-            {
-                return await _shopCartRepository.GetCartByUserIdAsync(userId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorByTemplate(
-                    nameof(ShopCartService),
-                    nameof(GetCartByUserIdAsync),
-                    $"Cannot get data from database",
-                    ex);
-
-                return null;
-            }
-
+            return await _shopCartRepository.GetCartByUserIdAsync(userId);
         }
 
-
-        public async Task<List<ShopCart>> GetAllShopCartsAsync()
+        public async Task<IEnumerable<ShopCart>> GetAllShopCartsAsync()
         {
-            try
-            {
-                return await _shopCartRepository.GetAllShopCartsAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorByTemplate(
-                    nameof(ShopCartService),
-                    nameof(GetAllShopCartsAsync),
-                    $"Cannot get data from database",
-                    ex);
-
-                return null;
-            }
-        }
-
-        public Task<ShopCart> GetCartByUserIDAsync(int userId)
-        {
-            throw new NotImplementedException();
+            return await _shopCartRepository.GetAllShopCartsAsync();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Ordering.Core.Interfaces;
 using Ordering.Infrastructure.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,14 +18,14 @@ namespace PlantMarket.Controllers
             IIdentityService identityService,
             IOrderService orderService)
         {
-            _orderService = orderService;
-            _identityService = identityService;
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
         }
 
 
         [HttpGet]
         [Route("GetAllOrders")]
-        public async Task<ActionResult<List<Order>>> GetAllOrdersAsync()
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersAsync()
         {
             var orders = await _orderService
                 .GetAllAsync();
@@ -37,7 +37,6 @@ namespace PlantMarket.Controllers
 
             return Ok(orders);
         }
-
 
         [HttpGet]
         [Route("GetOrderById")]
@@ -54,7 +53,6 @@ namespace PlantMarket.Controllers
             return Ok(order);
         }
 
-
         [HttpPost]
         [Route("AddNewOrder")]
         public async Task<ActionResult<Order>> AddOrderAsync([FromBody] Order newOrder)
@@ -67,7 +65,6 @@ namespace PlantMarket.Controllers
                 return BadRequest();
             }
             return Ok(Order);
-
         }
 
         [HttpDelete]
@@ -89,7 +86,7 @@ namespace PlantMarket.Controllers
         //[Authorize]
         [HttpGet]
         [Route("GetAllUserOrders")]
-        public async Task<ActionResult<List<Order>>> GetAllUserOrdersAsync()
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllUserOrdersAsync()
         {
             if (!int.TryParse(_identityService.GetUserIdentity(), out int userId))
             {
@@ -109,9 +106,8 @@ namespace PlantMarket.Controllers
 
         [HttpGet]
         [Route("GetAllUserOrdersById")]
-        public async Task<ActionResult<List<Order>>> GetAllUserOrdersByIdAsync(int id)
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllUserOrdersByIdAsync(int id)
         {
-
             var orders = await _orderService
                 .GetAllOrdersByUserIdAsync(id);
 
@@ -122,6 +118,5 @@ namespace PlantMarket.Controllers
 
             return Ok(orders);
         }
-
     }
 }

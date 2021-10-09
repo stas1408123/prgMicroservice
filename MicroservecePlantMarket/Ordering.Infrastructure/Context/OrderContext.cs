@@ -1,10 +1,5 @@
-﻿using Ordering.Infrastructure.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Ordering.Infrastructure.Entities;
 
 namespace Ordering.Infrastructure.Context
 {
@@ -13,10 +8,8 @@ namespace Ordering.Infrastructure.Context
         public OrderContext(DbContextOptions<OrderContext> options)
             : base(options)
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
-
 
         public DbSet<Order> Orders { get; set; }
 
@@ -25,9 +18,7 @@ namespace Ordering.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             //
-
             base.OnModelCreating(modelBuilder);
         }
     }

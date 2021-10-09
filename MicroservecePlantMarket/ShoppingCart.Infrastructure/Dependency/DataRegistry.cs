@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ShoppingCart.Infrastructure.Repositories.Implementations;
-using ShoppingCart.Infrastructure.Repositories.Interfaces;
+using ShoppingCart.DAL.Repositories.Implementations;
+using ShoppingCart.DAL.Repositories.Interfaces;
 
-namespace ShoppingCart.Infrastructure.Dependency
+namespace ShoppingCart.DAL.Dependency
 {
     public static class DataRegistry
     {

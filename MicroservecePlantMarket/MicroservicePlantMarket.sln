@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Core", "Ordering.Core\Ordering.Core.csproj", "{93E055AE-9952-4739-9FB1-DAD1A2D83447}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Core", "ShoppingCart.Core\ShoppingCart.Core.csproj", "{BA051392-78D6-4F1E-97CD-43320715B990}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.BLL", "ShoppingCart.Core\ShoppingCart.BLL.csproj", "{BA051392-78D6-4F1E-97CD-43320715B990}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Infrastructure", "ShoppingCart.Infrastructure\ShoppingCart.Infrastructure.csproj", "{86F9FF07-BE5F-4262-A373-4DB7FF8DD8D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.DAL", "ShoppingCart.Infrastructure\ShoppingCart.DAL.csproj", "{86F9FF07-BE5F-4262-A373-4DB7FF8DD8D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Shared", "ShoppingCart.Shared\ShoppingCart.Shared.csproj", "{C3F552D8-3233-4A36-AE4E-C2E25D147CC6}"
 EndProject

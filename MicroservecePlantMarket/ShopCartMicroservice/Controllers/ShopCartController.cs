@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShoppingCart.Core.Interfaces;
-using ShoppingCart.Infrastructure.Entities;
+using ShoppingCart.Api.Services.Interfaces;
+using ShoppingCart.BLL.Interfaces;
+using ShoppingCart.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,9 +24,8 @@ namespace ShopCartMicroservice.Controllers
             _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
         }
 
-
         [HttpGet]
-        public async Task<ICollection<ShopCart>> GetAllCart()
+        public async Task<IEnumerable<ShopCart>> GetAllCart()
         {
             var products = await _shopCartService
                 .GetAllShopCartsAsync();
@@ -43,14 +43,6 @@ namespace ShopCartMicroservice.Controllers
             /// если не проходит то кидаем эксепшен
 
             return Ok();
-        }
-
-        [HttpPost]
-        public async Task AddNewPlantToCart(
-            [FromBody] ShopCartItem shopCartItem)
-        {
-            await _shopCartService
-                .AddNewShopCartItemAsync(shopCartItem);
         }
 
         [Route("CreateCart")]

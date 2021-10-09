@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Product.BLL.Services.Interfaces;
 using Product.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace ProductMicroservice.Controllers
 
         public PlantController(IPlantService plantService)
         {
-            _plantService = plantService;
+            _plantService = plantService ?? throw new ArgumentNullException(nameof(plantService));
         }
 
         [HttpGet]

@@ -1,12 +1,8 @@
-﻿
-using ShoppingCart.Infrastructure.Entities;
-using System;
+﻿using ShoppingCart.DAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingCart.Core.Interfaces
+namespace ShoppingCart.BLL.Interfaces
 {
     public interface IShopCartService
     {
@@ -18,6 +14,6 @@ namespace ShoppingCart.Core.Interfaces
 
         Task<ShopCart> GetCartByUserIdAsync(int userId);
 
-        Task<List<ShopCart>> GetAllShopCartsAsync();
+        Task<IEnumerable<ShopCart>> GetAllShopCartsAsync();
     }
 }
