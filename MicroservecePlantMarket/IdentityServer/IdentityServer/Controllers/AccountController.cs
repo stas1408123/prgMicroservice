@@ -32,11 +32,9 @@ namespace IdentityServer.Controllers
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = model.Name };
-                // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // установка куки
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -52,9 +50,10 @@ namespace IdentityServer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
-            return View(new LoginViewModel { });
+            var loginViev = new LoginViewModel() { ReturnUrl = returnUrl };
+            return View(loginViev);
         }
 
         [HttpPost]
@@ -70,7 +69,7 @@ namespace IdentityServer.Controllers
                 if (result.Succeeded)
                 {
 
-                    return RedirectToAction("Index", "Home");
+                    return Redirect(model.ReturnUrl);
 
                 }
                 else
@@ -85,8 +84,8 @@ namespace IdentityServer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -99,6 +98,9 @@ namespace IdentityServer.Controllers
             [Required]
             public string Password { get; set; }
 
+            //[Required]
+            public string ReturnUrl { get; set; }
+
         }
 
         public class RegisterViewModel
@@ -109,6 +111,8 @@ namespace IdentityServer.Controllers
             [Required]
             public string Password { get; set; }
 
+            [Required]
+            public string ReturnUrl { get; set; }
         }
     }
 }
